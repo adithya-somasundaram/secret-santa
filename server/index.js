@@ -1,3 +1,5 @@
+// Special thanks to Solomon04 for server set up
+
 // Server functions
 
 const express = require('express');
