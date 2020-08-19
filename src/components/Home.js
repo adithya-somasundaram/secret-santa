@@ -13,32 +13,32 @@ class Home extends Component{
             entry : [],
             users :[],
             numbers : [],
-            total : 1
+            total : 2
         }        
     }
 
     componentDidMount() {
         const {text} = this.state
         
-        var temp  = (
+        var temp  = [(
             <div>
                 <input id= {0} value={text.recipient} onChange={e => this.setState({
                     text: {
                         ...text, recipient: e.target.value
                     }
                 })}/>
-                <input id= {0} value={text.textmessage} onChange={e => this.setState({
+                <input id= {1} value={text.textmessage} onChange={e => this.setState({
                     text: {
                         ...text, textmessage: e.target.value
                     }
                 })}/>
             </div>
-        );
+        )];
+        
 
         this.setState({
-            entry : [temp]
+            entry : temp
         })
-        // this.add()
     }
 
     sendText = _ => {
@@ -51,38 +51,44 @@ class Home extends Component{
     add(){
         const {text} = this.state
 
-        var temp  = (
+        var temp  = [(
             <div>
                 <input id= {this.state.total} value={text.recipient} onChange={e => this.setState({
                     text: {
                         ...text, recipient: e.target.value
                     }
                 })}/>
-                <input id= {this.state.total} value={text.textmessage} onChange={e => this.setState({
+                <input id= {this.state.total+1} value={text.textmessage} onChange={e => this.setState({
                     text: {
                         ...text, textmessage: e.target.value
                     }
                 })}/>
             </div>
-        );
+        )];
         
-        var x = this.state.entry;
-        x.push(temp)
+        var x = this.state.entry.concat(temp);
 
         this.setState((prevState) => ({
             entry : x,
-            total : prevState.total + 1
+            total : prevState.total + 2
         }))
         console.log(this.state.entry)
     }
 
     sub(){
+        var x = this.state.entry.splice(1)
+
         this.setState((prevState) => ({
-            total : prevState.total - 1
+            entry: x,
+            total : prevState.total - 2
         }))
     }
 
     render(){
+        if(this.state.entry === []){
+            return (<div>rip</div>)
+        }
+        console.log(this.state.entry)
         return(
             <div>
                 {this.state.entry}
