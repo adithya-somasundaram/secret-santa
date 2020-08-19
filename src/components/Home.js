@@ -11,8 +11,8 @@ class Home extends Component{
                 textmessage: ''
             },
             entry : [],
-            users :[],
-            numbers : [],
+            users :[''],
+            numbers : [0],
             total : 2
         }        
     }
@@ -22,16 +22,14 @@ class Home extends Component{
         
         var temp  = [(
             <div>
-                <input id= {0} value={text.recipient} onChange={e => this.setState({
-                    text: {
-                        ...text, recipient: e.target.value
-                    }
-                })}/>
-                <input id= {1} value={text.textmessage} onChange={e => this.setState({
-                    text: {
-                        ...text, textmessage: e.target.value
-                    }
-                })}/>
+                <input id= {0} type="text" onChange={e => {
+                    console.log(0)
+                    this.setUser(e.target.id, e.target.value)}
+                    }/>
+                <input id= {1} type="text" onChange={e => {
+                    console.log(1)
+                    this.setNum(e.target.id-1, e.target.value)}
+                    }/>
             </div>
         )];
         
@@ -53,42 +51,63 @@ class Home extends Component{
 
         var temp  = [(
             <div>
-                <input id= {this.state.total} value={text.recipient} onChange={e => this.setState({
-                    text: {
-                        ...text, recipient: e.target.value
-                    }
-                })}/>
-                <input id= {this.state.total+1} value={text.textmessage} onChange={e => this.setState({
-                    text: {
-                        ...text, textmessage: e.target.value
-                    }
-                })}/>
+                <input id= {this.state.total} type="text" onChange={e => {
+                    console.log(e.target.id)
+                    this.setUser(e.target.id/2, e.target.value)}}/>
+                <input id= {this.state.total+1} type="text" onChange={e => {
+                    console.log(e.target.id - 1)
+                    this.setNum((e.target.id-1)/2, e.target.value)}}/>
             </div>
         )];
         
         var x = this.state.entry.concat(temp);
+        var new_users = this.state.users.concat('');
+        var new_num = this.state.numbers.concat(0);
 
         this.setState((prevState) => ({
             entry : x,
+            users : new_users,
+            numbers : new_num,
             total : prevState.total + 2
         }))
-        console.log(this.state.entry)
     }
 
     sub(){
-        var x = this.state.entry.splice(1)
+        var x = this.state.entry;
+        x.pop()
+        var new_users = this.state.users;
+        new_users.pop()
+        console.log(new_users)
+        var new_num = this.state.numbers;
+        new_num.pop()
 
         this.setState((prevState) => ({
             entry: x,
+            users : new_users,
+            numbers : new_num,
             total : prevState.total - 2
         }))
     }
 
+    setNum(i, val){
+        var temp = this.state.numbers;
+        temp[i] = parseInt(val);
+        console.log(temp)
+        this.setState({
+            numbers : temp
+        })
+    }
+
+    setUser(i, val){
+        var temp = this.state.users;
+        temp[i] = val;
+        console.log(temp)
+        this.setState({
+            users : temp
+        })
+    }
+
     render(){
-        if(this.state.entry === []){
-            return (<div>rip</div>)
-        }
-        console.log(this.state.entry)
         return(
             <div>
                 {this.state.entry}
@@ -101,5 +120,11 @@ class Home extends Component{
         )
     }
 }
+
+{/* <input id= {this.state.total} value={text.recipient} onChange={e => this.setState({
+                    text: {
+                        ...text, recipient: e.target.value
+                    }
+                })}/> */}
 
 export default Home;
