@@ -73,8 +73,7 @@ class Home extends Component{
     }
 
     sub(){
-        var x = this.state.entry;
-        x.pop()
+        var x = this.state.entry.splice(0, this.state.entry.length-1);
         var new_users = this.state.users;
         new_users.pop()
         console.log(new_users)
