@@ -62,6 +62,7 @@ class Home extends Component {
                     this.setNum((e.target.id - 1) / 2, e.target.value)
                 }} />
             </div>
+            
         )];
 
         var x = this.state.entry.concat(temp);
@@ -121,6 +122,7 @@ class Home extends Component {
                     <button onClick={() => { this.sub() }}>-</button>
                 </div>
                 <button onClick={this.sendText}>Go!</button>
+                <p> this is a test</p>
             </div>
         )
     }
