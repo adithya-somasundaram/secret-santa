@@ -51,10 +51,30 @@ class Home extends Component {
     }
 
     sendText = _ => {
-        const { text } = this.state
+        // const { text } = this.state
 
-        fetch(`http://localhost:4000/send-text?recipient=${text.recipient}&textmessage=${text.textmessage}`)
-            .catch(err => console.log('error: ', err))
+        // fetch(`http://localhost:4000/send-text?recipient=${text.recipient}&textmessage=${text.textmessage}`)
+        //     .catch(err => console.log('error: ', err))
+        if(this.state.users.length < 2){
+            alert('Need at least 2 participants!')
+        } else {
+            for(var i = 0; i < this.state.users.length; i++){
+                if(this.state.users[i] === "" ^ (this.state.numbers[i] === 0 || this.state.numbers[i] === isNaN)){
+                    alert('invalid');
+                    return;
+                }
+            }
+        }
+        var test = this.state.users.filter(name => name !== "")
+        var test2 = this.state.numbers.filter(num => num !== isNaN && num !== 0)
+        for(var j = 0; j < this.state.numbers.length; j++){
+            var first = this.state.numbers[j].toString().substring(0,1)
+            console.log(first)
+            // if(first == 1){
+            //     console.log("yup")
+            // }
+        }
+        console.log(test, test2)
     }
 
     add() {
