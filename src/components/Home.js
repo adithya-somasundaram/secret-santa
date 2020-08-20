@@ -121,6 +121,7 @@ class Home extends Component {
                     <button onClick={() => { this.sub() }}>-</button>
                 </div>
                 <button onClick={this.sendText}>Go!</button>
+                <p>this is new...</p>
             </div>
         )
     }
