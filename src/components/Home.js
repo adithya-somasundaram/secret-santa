@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Form, Col, Row, Container } from 'react-bootstrap';
 
 class Home extends Component {
 
@@ -22,16 +23,24 @@ class Home extends Component {
 
         var temp = [(
             <div>
-                <input id={0} type="text" onChange={e => {
-                    console.log(0)
-                    this.setUser(e.target.id, e.target.value)
-                }
-                } />
-                <input id={1} type="text" onChange={e => {
-                    console.log(1)
-                    this.setNum(e.target.id - 1, e.target.value)
-                }
-                } />
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <Col>
+                            <Form.Control placeholder="Name" id={0} type="text" onChange={e => {
+                            // console.log(0)
+                            this.setUser(0, e.target.value)
+                        }
+                        } />
+                        </Col>
+                        <Col>
+                            <Form.Control placeholder="Telephone Number" id={1} type="tel" onChange={e => {
+                            // console.log(1)
+                            this.setNum(e.target.id - 1, e.target.value)
+                        }
+                        } />
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         )];
 
@@ -53,14 +62,22 @@ class Home extends Component {
 
         var temp = [(
             <div>
-                <input id={this.state.total} type="text" onChange={e => {
-                    console.log(e.target.id)
-                    this.setUser(e.target.id / 2, e.target.value)
-                }} />
-                <input id={this.state.total + 1} type="text" onChange={e => {
-                    console.log(e.target.id - 1)
-                    this.setNum((e.target.id - 1) / 2, e.target.value)
-                }} />
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <Col>
+                            <Form.Control placeholder="Name" id={this.state.total} type="text" onChange={e => {
+                            // console.log(e.target.id)
+                            this.setUser(e.target.id / 2, e.target.value)
+                        }} />
+                        </Col>
+                        <Col>
+                            <Form.Control placeholder="Telephone Number" id={this.state.total + 1} type="tel" onChange={e => {
+                            // console.log(e.target.id - 1)
+                            this.setNum((e.target.id - 1) / 2, e.target.value)
+                        }} />
+                        </Col>
+                    </Row>
+                </Container>
             </div>
             
         )];
@@ -107,7 +124,7 @@ class Home extends Component {
     setUser(i, val) {
         var temp = this.state.users;
         temp[i] = val;
-        console.log(temp)
+        console.log(i, val, temp)
         this.setState({
             users: temp
         })
@@ -116,13 +133,14 @@ class Home extends Component {
     render() {
         return (
             <div>
-                {this.state.entry}
-                <div>
-                    <button onClick={() => { this.add() }}>+</button>
-                    <button onClick={() => { this.sub() }}>-</button>
-                </div>
-                <button onClick={this.sendText}>Go!</button>
-                <p> this is a test</p>
+                <Container>
+                    {this.state.entry}
+                    <div>
+                        <Button variant="light" onClick={() => { this.add() }}>+</Button>
+                        <Button variant="light" onClick={() => { this.sub() }}>-</Button>
+                    </div>
+                    <Button variant="primary" onClick={this.sendText}>Go!</Button>
+                </Container>
             </div>
         )
     }
