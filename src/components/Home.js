@@ -27,14 +27,14 @@ class Home extends Component {
                     <Row className="justify-content-md-center">
                         <Col>
                             <Form.Control placeholder="Name" id={0} type="text" onChange={e => {
-                            console.log(0)
-                            this.setUser(e.target.id, e.target.value)
+                            // console.log(0)
+                            this.setUser(0, e.target.value)
                         }
                         } />
                         </Col>
                         <Col>
-                            <Form.Control placeholder="Telephone Number" id={1} type="text" onChange={e => {
-                            console.log(1)
+                            <Form.Control placeholder="Telephone Number" id={1} type="tel" onChange={e => {
+                            // console.log(1)
                             this.setNum(e.target.id - 1, e.target.value)
                         }
                         } />
@@ -66,13 +66,13 @@ class Home extends Component {
                     <Row className="justify-content-md-center">
                         <Col>
                             <Form.Control placeholder="Name" id={this.state.total} type="text" onChange={e => {
-                            console.log(e.target.id)
+                            // console.log(e.target.id)
                             this.setUser(e.target.id / 2, e.target.value)
                         }} />
                         </Col>
                         <Col>
-                            <Form.Control placeholder="Telephone Number" id={this.state.total + 1} type="text" onChange={e => {
-                            console.log(e.target.id - 1)
+                            <Form.Control placeholder="Telephone Number" id={this.state.total + 1} type="tel" onChange={e => {
+                            // console.log(e.target.id - 1)
                             this.setNum((e.target.id - 1) / 2, e.target.value)
                         }} />
                         </Col>
@@ -124,7 +124,7 @@ class Home extends Component {
     setUser(i, val) {
         var temp = this.state.users;
         temp[i] = val;
-        console.log(temp)
+        console.log(i, val, temp)
         this.setState({
             users: temp
         })
