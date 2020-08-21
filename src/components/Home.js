@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Form, Col, Row, Container } from 'react-bootstrap';
+import { Button, Form, Col, Row, Container, Navbar, Nav } from 'react-bootstrap';
+import {border, backgroundC} from './style';
 
 class Home extends Component {
 
@@ -24,16 +25,16 @@ class Home extends Component {
         var temp = [(
             <div>
                 <Container>
-                    <Row className="justify-content-md-center">
-                        <Col>
-                            <Form.Control placeholder="Name" id={0} type="text" onChange={e => {
+                    <Row>
+                        <Col xs="auto">
+                            <Form.Control className="mb-2 mr-sm-2" placeholder="Name" id={0} type="text" onChange={e => {
                             console.log(0)
                             this.setUser(e.target.id, e.target.value)
                         }
                         } />
                         </Col>
-                        <Col>
-                            <Form.Control placeholder="Telephone Number" id={1} type="text" onChange={e => {
+                        <Col xs="auto">
+                            <Form.Control className="mb-2 mr-sm-2" placeholder="Telephone Number" id={1} type="text" onChange={e => {
                             console.log(1)
                             this.setNum(e.target.id - 1, e.target.value)
                         }
@@ -63,15 +64,15 @@ class Home extends Component {
         var temp = [(
             <div>
                 <Container>
-                    <Row className="justify-content-md-center">
-                        <Col>
-                            <Form.Control placeholder="Name" id={this.state.total} type="text" onChange={e => {
+                    <Row>
+                        <Col xs="auto">
+                            <Form.Control className="mb-2 mr-sm-2" placeholder="Name" id={this.state.total} type="text" onChange={e => {
                             console.log(e.target.id)
                             this.setUser(e.target.id / 2, e.target.value)
                         }} />
                         </Col>
-                        <Col>
-                            <Form.Control placeholder="Telephone Number" id={this.state.total + 1} type="text" onChange={e => {
+                        <Col xs="auto">
+                            <Form.Control className="mb-2 mr-sm-2" placeholder="Telephone Number" id={this.state.total + 1} type="text" onChange={e => {
                             console.log(e.target.id - 1)
                             this.setNum((e.target.id - 1) / 2, e.target.value)
                         }} />
@@ -132,16 +133,25 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
-                <Container>
+            <div style={backgroundC}>
+                <Container fluid="md">
+                <Navbar border="success">
+                    <Navbar.Brand href="#">Secret Santa</Navbar.Brand>
+                    <Nav className="mr-auto">
+                    <Nav.Link href="#home">Home</Nav.Link>
+                    </Nav>
+                </Navbar>
+                <div style={border}>
                     {this.state.entry}
                     <div>
-                        <Button variant="light" onClick={() => { this.add() }}>+</Button>
-                        <Button variant="light" onClick={() => { this.sub() }}>-</Button>
+                        <Button className="mb-2 mr-sm-2" variant="success" onClick={() => { this.add() }}>+</Button>
+                        <Button className="mb-2 mr-sm-2" variant="danger" onClick={() => { this.sub() }}>-</Button>
                     </div>
-                    <Button variant="primary" onClick={this.sendText}>Go!</Button>
+                    <Button variant="primary" onClick={this.sendText}>Send!</Button>
+                </div>
                 </Container>
             </div>
+            
         )
     }
 }
