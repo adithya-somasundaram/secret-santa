@@ -50,13 +50,14 @@ class Home extends Component {
         })
     }
 
-    sendText = _ => {
+    logic = _ => {
         // const { text } = this.state
 
         // fetch(`http://localhost:4000/send-text?recipient=${text.recipient}&textmessage=${text.textmessage}`)
         //     .catch(err => console.log('error: ', err))
         if(this.state.users.length < 2){
             alert('Need at least 2 participants!')
+            return
         } else {
             for(var i = 0; i < this.state.users.length; i++){
                 if(this.state.users[i] === "" ^ (this.state.numbers[i] === 0 || this.state.numbers[i] === isNaN)){
@@ -65,16 +66,47 @@ class Home extends Component {
                 }
             }
         }
-        var test = this.state.users.filter(name => name !== "")
-        var test2 = this.state.numbers.filter(num => num !== isNaN && num !== 0)
-        for(var j = 0; j < this.state.numbers.length; j++){
-            var first = this.state.numbers[j].toString().substring(0,1)
-            console.log(first)
-            // if(first == 1){
-            //     console.log("yup")
-            // }
+        var names = this.state.users.filter(name => name !== "")
+        var nums = this.state.numbers.filter(num => num !== isNaN && num !== 0)
+        for(var j = 0; j < nums.length; j++){
+            var first = nums[j].toString().substring(0,1)
+            if(first === "1"){
+                var temp = nums[j].toString().substring(1,nums[j].toString().length)
+                nums[j] = parseInt(temp)
+            }
         }
-        console.log(test, test2)
+
+        if(names.length < 2){
+            alert('Need at least 2 participants!')
+            return
+        }
+
+        var combined = []
+        var temp;
+
+        for(var a = 0; a < names.length; a++){
+            temp = [names[a], nums[a]]
+            combined.push(temp)
+        }
+
+        console.log(combined, combined.length)
+
+        var comb_len = combined.length
+        var shuffled = []
+        var location;
+
+        for(var b = 0; b < comb_len; b++){
+            location = Math.floor(Math.random() * (comb_len-b))
+            shuffled[b] = combined[location]
+            combined.splice(location, 1)
+            console.log(location, combined)
+        }
+
+        console.log(shuffled)
+
+        for(var c = 0; c < shuffled.length; c++){
+            console.log(shuffled[c][1], shuffled[c][0], shuffled[(c+1)%shuffled.length][0])
+        }
     }
 
     add() {
@@ -159,7 +191,7 @@ class Home extends Component {
                         <Button variant="light" onClick={() => { this.add() }}>+</Button>
                         <Button variant="light" onClick={() => { this.sub() }}>-</Button>
                     </div>
-                    <Button variant="primary" onClick={this.sendText}>Go!</Button>
+                    <Button variant="primary" onClick={this.logic}>Go!</Button>
                 </Container>
             </div>
         )
