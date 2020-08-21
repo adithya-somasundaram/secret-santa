@@ -101,14 +101,15 @@ class Home extends Component {
         console.log(shuffled)
 
         for(var c = 0; c < shuffled.length; c++){
-            this.sendMsg(shuffled[c][0], shuffled[c][1], shuffled[(c+1)%shuffled.length][0]);
+            this.sendMsg(shuffled[c][0], shuffled[c][1], shuffled[(c+1)%shuffled.length][0])
+            
         }
     }
 
-    sendMsg(recipName, recipNum, assignment) {
+    async sendMsg(recipName, recipNum, assignment) {
         var message = "Hello " + recipName + "!\nYour assignment for Secret Santa is " + assignment;
         console.log('here', message, recipName, recipNum, assignment)
-        fetch(`http://localhost:4000/send-text?recipient=${recipNum}&textmessage=${message}`)
+        return await fetch(`http://localhost:4000/send-text?recipient=${recipNum}&textmessage=${message}`)
             .catch(err => console.log('error: ', err))
     }
 
