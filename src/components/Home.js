@@ -55,17 +55,13 @@ class Home extends Component {
 
         // fetch(`http://localhost:4000/send-text?recipient=${text.recipient}&textmessage=${text.textmessage}`)
         //     .catch(err => console.log('error: ', err))
-        if(this.state.users.length < 2){
-            alert('Need at least 2 participants!')
-            return
-        } else {
-            for(var i = 0; i < this.state.users.length; i++){
-                if(this.state.users[i] === "" ^ (this.state.numbers[i] === 0 || this.state.numbers[i] === isNaN)){
-                    alert('invalid');
-                    return;
-                }
+        for(var i = 0; i < this.state.users.length; i++){
+            if(this.state.users[i] === "" ^ (this.state.numbers[i] === 0 || this.state.numbers[i] === isNaN)){
+                alert('invalid');
+                return;
             }
         }
+
         var names = this.state.users.filter(name => name !== "")
         var nums = this.state.numbers.filter(num => num !== isNaN && num !== 0)
         for(var j = 0; j < nums.length; j++){
@@ -105,8 +101,15 @@ class Home extends Component {
         console.log(shuffled)
 
         for(var c = 0; c < shuffled.length; c++){
-            console.log(shuffled[c][1], shuffled[c][0], shuffled[(c+1)%shuffled.length][0])
+            this.sendMsg(shuffled[c][0], shuffled[c][1], shuffled[(c+1)%shuffled.length][0]);
         }
+    }
+
+    sendMsg(recipName, recipNum, assignment) {
+        var message = "Hello " + recipName + "!\nYour assignment for Secret Santa is " + assignment;
+        console.log('here', message, recipName, recipNum, assignment)
+        fetch(`http://localhost:4000/send-text?recipient=${recipNum}&textmessage=${message}`)
+            .catch(err => console.log('error: ', err))
     }
 
     add() {
