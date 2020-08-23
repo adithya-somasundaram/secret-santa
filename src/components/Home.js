@@ -15,7 +15,14 @@ class Home extends Component {
             entry: [],
             users: [''],
             numbers: [0],
-            total: 2
+            total: 2,
+            title: 'Secret Santa!',
+            title_style : {
+                fontFamily : 'Comic Sans MS',
+                paddingLeft : '20vh',
+                fontSize : '50px',
+                color : 'white'
+            }
         }
     }
 
@@ -96,7 +103,9 @@ class Home extends Component {
         }
 
         console.log(shuffled)
-
+        this.setState({
+            title : 'Please wait...'
+        })
         for (var c = 0; c < shuffled.length; c++) {
             // setTimeout(this.sendMsg(shuffled[c][0], shuffled[c][1], shuffled[(c+1)%shuffled.length][0]), 5000*c)
             setTimeout((shuffled, c) => {
@@ -191,12 +200,14 @@ class Home extends Component {
     render() {
         return (
             <div style={backgroundC}>
+                <link href='https://fonts.googleapis.com/css?family=Mountains of Christmas'></link>
                 <Container fluid="md">
                     <Navbar border="success">
-                        <Navbar.Brand href="#">Secret Santa</Navbar.Brand>
+                    <h2 style={this.state.title_style}>{this.state.title}</h2>
+                        {/* <Navbar.Brand href="#">Secret Santa</Navbar.Brand>
                         <Nav className="mr-auto">
                             <Nav.Link href="#home">Home</Nav.Link>
-                        </Nav>
+                        </Nav> */}
                     </Navbar>
                     <div style={border}>
                         {this.state.entry}
