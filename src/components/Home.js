@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Form, Col, Row, Container } from 'react-bootstrap';
+import { Button, Form, Col, Row, Container, Navbar, Nav } from 'react-bootstrap';
+import { border, backgroundC } from './style';
 
 class Home extends Component {
 
@@ -24,16 +25,16 @@ class Home extends Component {
         var temp = [(
             <div>
                 <Container>
-                    <Row className="justify-content-md-center">
-                        <Col>
-                            <Form.Control placeholder="Name" id={0} type="text" onChange={e => {
+                    <Row>
+                        <Col xs="auto">
+                            <Form.Control className="mb-2 mr-sm-2" placeholder="Name" id={0} type="text" onChange={e => {
                                 // console.log(0)
                                 this.setUser(0, e.target.value)
                             }
                             } />
                         </Col>
-                        <Col>
-                            <Form.Control placeholder="Telephone Number" id={1} type="tel" onChange={e => {
+                        <Col xs="auto">
+                            <Form.Control className="mb-2 mr-sm-2" placeholder="Telephone Number" id={1} type="tel" onChange={e => {
                                 // console.log(1)
                                 this.setNum(e.target.id - 1, e.target.value)
                             }
@@ -51,10 +52,6 @@ class Home extends Component {
     }
 
     logic = _ => {
-        // const { text } = this.state
-
-        // fetch(`http://localhost:4000/send-text?recipient=${text.recipient}&textmessage=${text.textmessage}`)
-        //     .catch(err => console.log('error: ', err))
         for (var i = 0; i < this.state.users.length; i++) {
             if (this.state.users[i] === "" ^ (this.state.numbers[i] === 0 || this.state.numbers[i] === isNaN)) {
                 alert('invalid');
@@ -102,12 +99,13 @@ class Home extends Component {
 
         for (var c = 0; c < shuffled.length; c++) {
             // setTimeout(this.sendMsg(shuffled[c][0], shuffled[c][1], shuffled[(c+1)%shuffled.length][0]), 5000*c)
-            setTimeout((shuffled,c)=>{
+            setTimeout((shuffled, c) => {
                 console.log(shuffled, c)
-                this.sendMsg(shuffled[c][0], shuffled[c][1], shuffled[(c+1)%shuffled.length][0])
+                this.sendMsg(shuffled[c][0], shuffled[c][1], shuffled[(c + 1) % shuffled.length][0])
             }, 5000 * c, shuffled, c)
-
         }
+
+        setTimeout(() => {window.location.reload(false)}, shuffled.length * 5000);
     }
 
     sendMsg(recipName, recipNum, assignment) {
@@ -123,16 +121,16 @@ class Home extends Component {
         var temp = [(
             <div>
                 <Container>
-                    <Row className="justify-content-md-center">
-                        <Col>
-                            <Form.Control placeholder="Name" id={this.state.total} type="text" onChange={e => {
-                                // console.log(e.target.id)
+                    <Row>
+                        <Col xs="auto">
+                            <Form.Control className="mb-2 mr-sm-2" placeholder="Name" id={this.state.total} type="text" onChange={e => {
+                                console.log(e.target.id)
                                 this.setUser(e.target.id / 2, e.target.value)
                             }} />
                         </Col>
-                        <Col>
-                            <Form.Control placeholder="Telephone Number" id={this.state.total + 1} type="tel" onChange={e => {
-                                // console.log(e.target.id - 1)
+                        <Col xs="auto">
+                            <Form.Control className="mb-2 mr-sm-2" placeholder="Telephone Number" id={this.state.total + 1} type="tel" onChange={e => {
+                                console.log(e.target.id - 1)
                                 this.setNum((e.target.id - 1) / 2, e.target.value)
                             }} />
                         </Col>
@@ -192,24 +190,26 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
-                <Container>
-                    {this.state.entry}
-                    <div>
-                        <Button variant="light" onClick={() => { this.add() }}>+</Button>
-                        <Button variant="light" onClick={() => { this.sub() }}>-</Button>
+            <div style={backgroundC}>
+                <Container fluid="md">
+                    <Navbar border="success">
+                        <Navbar.Brand href="#">Secret Santa</Navbar.Brand>
+                        <Nav className="mr-auto">
+                            <Nav.Link href="#home">Home</Nav.Link>
+                        </Nav>
+                    </Navbar>
+                    <div style={border}>
+                        {this.state.entry}
+                        <div>
+                            <Button className="mb-2 mr-sm-2" variant="success" onClick={() => { this.add() }}>+</Button>
+                            <Button className="mb-2 mr-sm-2" variant="danger" onClick={() => { this.sub() }}>-</Button>
+                        </div>
+                        <Button variant="primary" onClick={this.logic}>Go!</Button>
                     </div>
-                    <Button variant="primary" onClick={this.logic}>Go!</Button>
                 </Container>
             </div>
         )
     }
 }
-
-{/* <input id= {this.state.total} value={text.recipient} onChange={e => this.setState({
-                    text: {
-                        ...text, recipient: e.target.value
-                    }
-                })}/> */}
 
 export default Home;
