@@ -19,7 +19,6 @@ class Home extends Component {
             title: 'Secret Santa!',
             title_style : {
                 fontFamily : 'Comic Sans MS',
-                paddingLeft : '20vh',
                 fontSize : '50px',
                 color : 'white'
             }
@@ -32,7 +31,7 @@ class Home extends Component {
         var temp = [(
             <div>
                 <Container>
-                    <Row>
+                    <Row className="justify-content-md-center">
                         <Col xs="auto">
                             <Form.Control className="mb-2 mr-sm-2" placeholder="Name" id={0} type="text" onChange={e => {
                                 // console.log(0)
@@ -46,6 +45,9 @@ class Home extends Component {
                                 this.setNum(e.target.id - 1, e.target.value)
                             }
                             } />
+                        </Col>
+                        <Col xs="auto">
+                            <Button className="mb-2 mr-sm-2" variant="danger" onClick={() => { this.sub() }}>-</Button>
                         </Col>
                     </Row>
                 </Container>
@@ -130,7 +132,7 @@ class Home extends Component {
         var temp = [(
             <div>
                 <Container>
-                    <Row>
+                    <Row className="justify-content-md-center">
                         <Col xs="auto">
                             <Form.Control className="mb-2 mr-sm-2" placeholder="Name" id={this.state.total} type="text" onChange={e => {
                                 console.log(e.target.id)
@@ -142,6 +144,9 @@ class Home extends Component {
                                 console.log(e.target.id - 1)
                                 this.setNum((e.target.id - 1) / 2, e.target.value)
                             }} />
+                        </Col>
+                        <Col xs="auto">
+                            <Button className="mb-2 mr-sm-2" variant="danger" onClick={() => { this.sub() }}>-</Button>
                         </Col>
                     </Row>
                 </Container>
@@ -202,7 +207,7 @@ class Home extends Component {
             <div style={backgroundC}>
                 <link href='https://fonts.googleapis.com/css?family=Mountains of Christmas'></link>
                 <Container fluid="md">
-                    <Navbar border="success">
+                    <Navbar className="justify-content-md-center" border="success">
                     <h2 style={this.state.title_style}>{this.state.title}</h2>
                         {/* <Navbar.Brand href="#">Secret Santa</Navbar.Brand>
                         <Nav className="mr-auto">
@@ -212,10 +217,11 @@ class Home extends Component {
                     <div style={border}>
                         {this.state.entry}
                         <div>
-                            <Button className="mb-2 mr-sm-2" variant="success" onClick={() => { this.add() }}>+</Button>
-                            <Button className="mb-2 mr-sm-2" variant="danger" onClick={() => { this.sub() }}>-</Button>
+                            <Row className="justify-content-md-center">
+                            <Button className="mb-2 mr-sm-2" variant="success" onClick={() => { this.add() }}>Add a Santa</Button>
+                            </Row>
                         </div>
-                        <Button variant="primary" onClick={this.logic}>Go!</Button>
+                        <Button className="justify-content-md-left col-center"variant="primary" onClick={this.logic}>Go!</Button>
                     </div>
                 </Container>
             </div>
